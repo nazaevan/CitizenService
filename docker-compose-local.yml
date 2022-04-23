@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  test:
+    image: openjdk:11
+    volumes:
+      - ${MY_WORKSPACE}:/ws
+    working_dir: /ws${WORKSPACE_PATH:-/}
+    user: ${MY_USER:-root}
+    depends_on:
+      - postgres
+    command: >
+      ./gradlew --no-daemon
+      -g ./.gradle-cache
+      -Dspring.datasource.url=jdbc:postgresql://postgres:5432/mentoring
+
+      test
+
+  postgres:
+    image: "postgres:9.6.6-alpine"
+    command: ["postgres", "-c", "log_statement=all"]
+    environment:
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_USER=homestead
+      - POSTGRES_DB=mentoring
+    ports:
+      - "5432:5432"
+    volumes:
+      - ${MY_WORKSPACE}/src/test/resources/db/test/init${ENV_DATA}:/docker-entrypoint-initdb.d
+
+  redis:
+    image: redis:6.2-alpine
+    ports:
+      - "6379:6379"
+    command: redis-server --save 60 1 --requirepass MDNcVb924a --loglevel warning
