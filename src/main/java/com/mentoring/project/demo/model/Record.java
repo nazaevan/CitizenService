@@ -3,10 +3,9 @@ package com.mentoring.project.demo.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Table(name= "record", schema = "mentoring")
 @Entity
@@ -15,9 +14,11 @@ import javax.persistence.Table;
 @NoArgsConstructor
 public class Record {
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String idStatus;
 
+    @ColumnDefault("false")
     private Boolean isPublic;
 }

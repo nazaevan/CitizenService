@@ -2,18 +2,18 @@ CREATE SCHEMA IF NOT EXISTS mentoring;
 
 CREATE TABLE IF NOT EXISTS mentoring.department (
   id Serial PRIMARY KEY,
-  description varchar(25)
+  description varchar(255)
 );
 
-INSERT INTO mentoring.department VALUES ("1", "Mayors Office");
-INSERT INTO mentoring.department VALUES ("2", "Municipal Civil Registry");
-INSERT INTO mentoring.department VALUES ("3", "Municipal Public Works");
-INSERT INTO mentoring.department VALUES ("4", "Municipal Regulations and Events");
-INSERT INTO mentoring.department VALUES ("5", "Municipal Water and Sewage");
-INSERT INTO mentoring.department VALUES ("6", "Municipal Public Lighting");
+INSERT INTO mentoring.department (description) VALUES ('Mayors Office');
+INSERT INTO mentoring.department (description) VALUES ('Municipal Civil Registry');
+INSERT INTO mentoring.department (description) VALUES ('Municipal Public Works');
+INSERT INTO mentoring.department (description) VALUES ('Municipal Regulations and Events');
+INSERT INTO mentoring.department (description) VALUES ('Municipal Water and Sewage');
+INSERT INTO mentoring.department (description) VALUES ('Municipal Public Lighting');
 
 CREATE TABLE  IF NOT EXISTS mentoring.record (
-  id varchar(25) PRIMARY KEY,
+  id Serial PRIMARY KEY,
   id_status varchar(25),
   is_public boolean NOT NULL DEFAULT false
 );
@@ -23,9 +23,9 @@ CREATE TABLE  IF NOT EXISTS mentoring.status (
   description varchar(255)
 );
 
-INSERT INTO mentoring.status VALUES ("1", "Opened");
-INSERT INTO mentoring.status(id, description) VALUES ("2", "In progress");
-INSERT INTO mentoring.status(id, description) VALUES ("3", "Closed");
+INSERT INTO mentoring.status VALUES ('1', 'Opened');
+INSERT INTO mentoring.status(id, description) VALUES ('2', 'In progress');
+INSERT INTO mentoring.status(id, description) VALUES ('3', 'Closed');
 
 CREATE TABLE  IF NOT EXISTS mentoring.reviewer (
   id Serial PRIMARY KEY,
@@ -40,7 +40,7 @@ CREATE TABLE  IF NOT EXISTS mentoring.reviewer (
 CREATE TABLE  IF NOT EXISTS mentoring.request (
   id Serial PRIMARY KEY,
   id_status varchar(25),
-  id_record varchar(255),
+  id_record bigint,
   id_reviewer bigint,
   requester_name varchar(255),
   created_at timestamp(0) without time zone NOT NULL DEFAULT now(),

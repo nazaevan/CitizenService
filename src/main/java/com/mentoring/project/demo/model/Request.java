@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonPropertyOrder({"id", "id_status", "id_record", "id_reviewer", "created_at", "updated_at"})
+@JsonPropertyOrder({"id", "id_status", "id_record", "id_reviewer", "requester_name", "created_at", "updated_at"})
 public class Request {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,10 +24,13 @@ public class Request {
     private String idStatus;
 
     @JsonProperty("id_record")
-    private String idRecord;
+    private Long idRecord;
 
     @JsonProperty("id_reviewer")
     private Long idReviewer;
+
+    @JsonProperty("requester_name")
+    private String requesterName;
 
     @JsonProperty("created_at")
     private LocalDateTime createdAt;

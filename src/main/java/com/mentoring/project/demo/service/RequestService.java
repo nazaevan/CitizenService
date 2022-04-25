@@ -1,11 +1,14 @@
 package com.mentoring.project.demo.service;
 
 import com.mentoring.project.demo.model.Request;
+import com.mentoring.project.demo.model.Record;
+import com.mentoring.project.demo.constants.Status;
 import com.mentoring.project.demo.repository.RequestRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import java.time.LocalDateTime;
 
@@ -16,10 +19,23 @@ public class RequestService {
     @Autowired
     private RequestRepository repository;
 
-    public Request createRequest(Request request) {
-        request.setCreatedAt(LocalDateTime.now());
-        request.setUpdatedAt(LocalDateTime.now());
+    @Autowired
+    private RecordService recordService;
 
-        return repository.save(request);
+    @Autowired
+    private TransactionTemplate transactionTemplate;
+
+    public Request createRequest(Request request) {
+
+        return transactionTemplate.execute(createRequest -> {
+            Record createdRecord = recordService.createRecord();
+            request.setIdStatus(Status.STATUS_OPENED);
+            request.setIdRecord(createdRecord.getId());
+            request.setCreatedAt(LocalDateTime.now());
+            request.setUpdatedAt(LocalDateTime.now());
+
+            return repository.save(request);
+        });
+
     }
 }
