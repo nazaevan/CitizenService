@@ -19,6 +19,5 @@ public class Record {
 
     private String idStatus;
 
-    @ColumnDefault("false")
-    private Boolean isPublic;
+    private Boolean isPublic = Boolean.FALSE;
 }
