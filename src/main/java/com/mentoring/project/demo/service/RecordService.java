@@ -19,7 +19,6 @@ public class RecordService {
     public Record createRecord() {
         Record record = new Record();
         record.setIdStatus(Status.STATUS_OPENED);
-        record.setIsPublic(Boolean.FALSE);
 
         return repository.save(record);
     }
