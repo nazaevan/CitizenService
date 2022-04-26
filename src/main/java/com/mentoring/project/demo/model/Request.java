@@ -14,17 +14,19 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonPropertyOrder({"id", "id_status", "id_record", "id_reviewer", "requester_name", "created_at", "updated_at"})
+@JsonPropertyOrder({"id", "status", "record", "id_reviewer", "requester_name", "created_at", "updated_at"})
 public class Request {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonProperty("id_status")
-    private String idStatus;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_status", referencedColumnName = "id")
+    private Status status;
 
-    @JsonProperty("id_record")
-    private Long idRecord;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_record", referencedColumnName = "id", nullable = false)
+    private Record record;
 
     @JsonProperty("id_reviewer")
     private Long idReviewer;

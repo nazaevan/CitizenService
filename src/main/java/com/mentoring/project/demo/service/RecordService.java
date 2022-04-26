@@ -1,7 +1,7 @@
 package com.mentoring.project.demo.service;
 
 import com.mentoring.project.demo.model.Record;
-import com.mentoring.project.demo.constants.Status;
+import com.mentoring.project.demo.constants.StatusConstants;
 import com.mentoring.project.demo.repository.RecordRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +18,7 @@ public class RecordService {
 
     public Record createRecord() {
         Record record = new Record();
-        record.setIdStatus(Status.STATUS_OPENED);
+        record.setIdStatus(StatusConstants.STATUS_OPENED);
 
         return repository.save(record);
     }
