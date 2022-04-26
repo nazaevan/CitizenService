@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Table(name= "status", schema = "mentoring")
 @Entity
@@ -16,7 +17,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonPropertyOrder({"id", "description"})
-public class Status {
+public class Status implements Serializable {
     @Id
     private String id;
 

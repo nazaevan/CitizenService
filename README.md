@@ -7,6 +7,12 @@ To run the postgres locally:
 sh start-db-dev.sh
 ```
 
+To run Redis server locally
+
+```
+sh start-redis-dev.sh
+```
+
 to test the API running: 
 ```
 curl --location --request POST 'localhost:8080/api/ms/mentoring-demo/request/create' \

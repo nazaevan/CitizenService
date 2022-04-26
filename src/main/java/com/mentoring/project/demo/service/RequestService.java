@@ -9,6 +9,8 @@ import com.mentoring.project.demo.repository.StatusRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionTemplate;
 
@@ -29,6 +31,7 @@ public class RequestService {
     @Autowired
     private TransactionTemplate transactionTemplate;
 
+    @CacheEvict(cacheNames = "requestsList", allEntries = true)
     public Request createRequest(Request request) {
 
         return transactionTemplate.execute(createRequest -> {
@@ -44,11 +47,9 @@ public class RequestService {
 
     }
 
+    @Cacheable(cacheNames = "requestsList")
     public List<Request> listRequests() {
-
-        return transactionTemplate.execute(createRequest -> {
-            return repository.findAll();
-        });
+        return transactionTemplate.execute(listRequests -> repository.findAll());
 
     }
 }
