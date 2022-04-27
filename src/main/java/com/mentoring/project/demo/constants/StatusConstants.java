@@ -1,6 +1,6 @@
 package com.mentoring.project.demo.constants;
 
-public class Status {
+public class StatusConstants {
 
     public static final String STATUS_OPENED = "1";
 }
