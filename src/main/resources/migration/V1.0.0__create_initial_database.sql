@@ -11,6 +11,7 @@ INSERT INTO mentoring.department (description) VALUES ('Municipal Public Works')
 INSERT INTO mentoring.department (description) VALUES ('Municipal Regulations and Events');
 INSERT INTO mentoring.department (description) VALUES ('Municipal Water and Sewage');
 INSERT INTO mentoring.department (description) VALUES ('Municipal Public Lighting');
+INSERT INTO mentoring.department (description) VALUES ('SYSTEM');
 
 CREATE TABLE  IF NOT EXISTS mentoring.record (
   id Serial PRIMARY KEY,
@@ -36,6 +37,8 @@ CREATE TABLE  IF NOT EXISTS mentoring.reviewer (
   updated_at timestamp(0) without time zone NOT NULL DEFAULT now(),
   CONSTRAINT id_department_fk FOREIGN KEY (id_department) REFERENCES mentoring.department(id)
 );
+
+INSERT INTO mentoring.reviewer (name, last_name, id_department) VALUES ('SYSTEM', 'SYSTEM', 7);
 
 CREATE TABLE  IF NOT EXISTS mentoring.request (
   id Serial PRIMARY KEY,

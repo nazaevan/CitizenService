@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Table(name= "reviewer", schema = "mentoring")
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Reviewer {
+public class Reviewer implements Serializable {
     @Id
     private Long id;
 
