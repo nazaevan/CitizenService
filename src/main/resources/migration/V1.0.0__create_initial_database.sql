@@ -55,7 +55,7 @@ CREATE TABLE  IF NOT EXISTS mentoring.request (
 
 CREATE TABLE  IF NOT EXISTS mentoring.binnacle (
   id Serial PRIMARY KEY,
-  id_request Serial,
+  id_request bigint,
   id_reviewer bigint,
   comment varchar(500),
   CONSTRAINT id_request_fk FOREIGN KEY (id_request) REFERENCES mentoring.request(id),
