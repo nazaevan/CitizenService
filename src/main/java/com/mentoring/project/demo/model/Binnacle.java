@@ -21,9 +21,8 @@ public class Binnacle implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
-    @ManyToOne
-    @JoinColumn(name = "id_request")
-    private Request request;
+    @Column(name = "id_request")
+    private Long idRequest;
 
     private Long idReviewer;
 

@@ -14,11 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,21 +59,19 @@ public class RequestService {
             Request createdRequest = repository.save(request);
 
             Binnacle binnacle = new Binnacle();
-            binnacle.setRequest(createdRequest);
+            binnacle.setIdRequest(createdRequest.getId());
             binnacle.setIdReviewer(ReviewerConstants.SYSTEM_REVIEWER_ID);
             binnacle.setComment(GeneralConstants.DEFAULT_MESSAGE_FOR_BINNACLE+createdRequest.getCreatedAt());
             binnacleRepository.save(binnacle);
-
-
 
             return createdRequest;
         });
 
     }
 
-    @Cacheable(cacheNames = "requestsList")
+    //@Cacheable(cacheNames = "requestsList")
+    @Transactional
     public List<Request> listRequests() {
-        return transactionTemplate.execute(listRequests -> repository.findAll());
-
+        return repository.getAllRequests();
     }
 }

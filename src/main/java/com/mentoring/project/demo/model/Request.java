@@ -11,6 +11,7 @@ import org.hibernate.annotations.Proxy;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Table(name= "request", schema = "mentoring")
@@ -36,8 +37,9 @@ public class Request implements Serializable {
     @JoinColumn(name = "id_reviewer", referencedColumnName = "id", nullable = false)
     private Reviewer reviewer;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "request", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Binnacle> binnacles;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_request", referencedColumnName = "id")
+    private List<Binnacle> binnacles = new ArrayList<>();;
 
     @JsonProperty("requester_name")
     private String requesterName;
