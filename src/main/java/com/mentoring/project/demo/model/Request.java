@@ -1,12 +1,10 @@
 package com.mentoring.project.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -39,7 +37,7 @@ public class Request implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_request", referencedColumnName = "id")
-    private List<Binnacle> binnacles = new ArrayList<>();;
+    private List<Binnacle> binnacles = new ArrayList<>();
 
     @JsonProperty("requester_name")
     private String requesterName;

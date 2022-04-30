@@ -55,9 +55,17 @@ CREATE TABLE  IF NOT EXISTS mentoring.request (
 
 CREATE TABLE  IF NOT EXISTS mentoring.binnacle (
   id Serial PRIMARY KEY,
-  id_request Serial,
+  id_request bigint,
   id_reviewer bigint,
   comment varchar(500),
   CONSTRAINT id_request_fk FOREIGN KEY (id_request) REFERENCES mentoring.request(id),
   CONSTRAINT id_reviewer_fk FOREIGN KEY (id_reviewer) REFERENCES mentoring.reviewer(id)
+);
+
+CREATE TABLE  IF NOT EXISTS mentoring.file (
+  id Serial PRIMARY KEY,
+  id_record bigint,
+  file_name varchar(500),
+  file_path varchar(500),
+  CONSTRAINT id_record_fk FOREIGN KEY (id_record) REFERENCES mentoring.record(id)
 );
