@@ -2,14 +2,11 @@ package com.mentoring.project.demo.controller;
 
 
 import com.mentoring.project.demo.model.Request;
+import com.mentoring.project.demo.model.RequestFiles;
 import com.mentoring.project.demo.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,5 +25,10 @@ public class RequestController {
     @GetMapping(value = "request/list", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Request> listRequests () {
         return requestService.listRequests();
+    }
+
+    @GetMapping(value = "request/file", produces = MediaType.APPLICATION_JSON_VALUE)
+    public RequestFiles listRequestWithFiles (@RequestParam("id_request") Long idRequest) {
+        return requestService.getFilesForRequest(idRequest);
     }
 }

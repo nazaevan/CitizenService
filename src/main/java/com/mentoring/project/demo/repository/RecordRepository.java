@@ -13,5 +13,5 @@ public interface RecordRepository extends JpaRepository<Record, Long> {
     Record getById(@Param("id") Long id);
 
     @Query("select r from Record r LEFT JOIN FETCH r.files")
-    List<Record> getAllRecord();
+    List<Record> getAllRecords();
 }

@@ -4,10 +4,7 @@ import com.mentoring.project.demo.constants.GeneralConstants;
 import com.mentoring.project.demo.constants.ReviewerConstants;
 import com.mentoring.project.demo.constants.StatusConstants;
 import com.mentoring.project.demo.model.*;
-import com.mentoring.project.demo.repository.BinnacleRepository;
-import com.mentoring.project.demo.repository.RequestRepository;
-import com.mentoring.project.demo.repository.ReviewerRepository;
-import com.mentoring.project.demo.repository.StatusRepository;
+import com.mentoring.project.demo.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +32,9 @@ public class RequestService {
 
     @Autowired
     private BinnacleRepository binnacleRepository;
+
+    @Autowired
+    private FileRequestRepository fileRequestRepository;
 
     @Autowired
     private TransactionTemplate transactionTemplate;
@@ -71,5 +71,17 @@ public class RequestService {
     @Transactional
     public List<Request> listRequests() {
         return repository.getAllRequests();
+    }
+
+    public RequestFiles getFilesForRequest(Long id) {
+        Optional<Request> request = repository.findById(id);
+
+        if (request.isPresent()) {
+            List<FileRequest> files = fileRequestRepository.getAllFiles(request.get().getRecord().getId());
+
+            return new RequestFiles(request.get().getId(), files);
+        }
+
+        return new RequestFiles();
     }
 }

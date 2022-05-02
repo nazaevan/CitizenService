@@ -66,6 +66,8 @@ CREATE TABLE  IF NOT EXISTS mentoring.file (
   id Serial PRIMARY KEY,
   id_record bigint,
   file_name varchar(500),
-  file_path varchar(500),
+  content_type varchar(250),
+  file_size bigint,
+  data bytea,
   CONSTRAINT id_record_fk FOREIGN KEY (id_record) REFERENCES mentoring.record(id)
 );

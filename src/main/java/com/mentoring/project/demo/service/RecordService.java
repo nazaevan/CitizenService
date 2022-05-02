@@ -27,8 +27,8 @@ public class RecordService {
     }
 
     @Transactional
-    public List<Record> listRecord() {
-        return repository.getAllRecord();
+    public List<Record> listRecords() {
+        return repository.getAllRecords();
     }
 
 }

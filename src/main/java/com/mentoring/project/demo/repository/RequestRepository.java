@@ -8,10 +8,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface RequestRepository extends JpaRepository<Request, Long> {
-
-    @Query("select r from Request r LEFT JOIN FETCH r.binnacles where r.id=:id")
-    Request getById(@Param("id") Long id);
-
     @Query("select r from Request r LEFT JOIN FETCH r.binnacles")
     List<Request> getAllRequests();
 }
