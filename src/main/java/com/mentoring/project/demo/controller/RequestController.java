@@ -31,4 +31,9 @@ public class RequestController {
     public RequestFiles listRequestWithFiles (@RequestParam("id_request") Long idRequest) {
         return requestService.getFilesForRequest(idRequest);
     }
+
+    @PostMapping(value = "request/update", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Request updateRequest (@RequestBody Request requestData) {
+        return requestService.updateRequest(requestData);
+    }
 }

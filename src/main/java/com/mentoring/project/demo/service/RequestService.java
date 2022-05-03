@@ -84,4 +84,32 @@ public class RequestService {
 
         return new RequestFiles();
     }
+
+    public Request updateRequest(Request request) {
+        return transactionTemplate.execute(createRequest -> {
+            Optional<Request> gottenRequest = repository.findById(request.getId());
+            Request gottenRequestUpdate = gottenRequest.get();
+
+            Optional<Status> status = statusRepository.findById(request.getStatus().getId());
+            status.ifPresent(gottenRequestUpdate::setStatus);
+
+            Optional<Reviewer> reviewer = reviewerRepository.findById(request.getReviewer().getId());
+            reviewer.ifPresent(gottenRequestUpdate::setReviewer);
+
+            gottenRequestUpdate.setRequesterName(request.getRequesterName());
+
+            for(Binnacle binnacle : request.getBinnacles()){
+                Binnacle newBinnacle = new Binnacle();
+                newBinnacle.setIdRequest(request.getId());
+                newBinnacle.setIdReviewer(request.getReviewer().getId());
+                newBinnacle.setComment(binnacle.getComment());
+                binnacleRepository.save(binnacle);
+            }
+
+            gottenRequestUpdate.setUpdatedAt(LocalDateTime.now());
+
+            return repository.save(gottenRequestUpdate);
+        });
+    }
+
 }

@@ -39,6 +39,9 @@ CREATE TABLE  IF NOT EXISTS mentoring.reviewer (
 );
 
 INSERT INTO mentoring.reviewer (name, last_name, id_department) VALUES ('SYSTEM', 'SYSTEM', 7);
+INSERT INTO mentoring.reviewer (name, last_name, id_department) VALUES ('Nazareno', 'Casasola Angeles', 1);
+INSERT INTO mentoring.reviewer (name, last_name, id_department) VALUES ('Arisbeth', 'Casasola Angeles', 2);
+INSERT INTO mentoring.reviewer (name, last_name, id_department) VALUES ('Brenda', 'Garcia Casasola', 3);
 
 CREATE TABLE  IF NOT EXISTS mentoring.request (
   id Serial PRIMARY KEY,
