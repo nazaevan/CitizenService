@@ -39,7 +39,6 @@ public class RequestService {
     @Autowired
     private TransactionTemplate transactionTemplate;
 
-    @CacheEvict(cacheNames = "requestsList", allEntries = true)
     public Request createRequest(Request request) {
 
         return transactionTemplate.execute(createRequest -> {
@@ -67,7 +66,6 @@ public class RequestService {
 
     }
 
-    //@Cacheable(cacheNames = "requestsList")
     @Transactional
     public List<Request> listRequests() {
         return repository.getAllRequests();
